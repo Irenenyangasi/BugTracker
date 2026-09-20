@@ -18,5 +18,6 @@ data class Issue(
 
     val creationDate: String,
 
+    // Tracks whether the issue has been synchronized with the remote server.
     val syncStatus: String = "PENDING"
 )
