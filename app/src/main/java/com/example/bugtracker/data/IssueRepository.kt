@@ -28,13 +28,16 @@ class IssueRepository(
     }
 
     suspend fun syncIssue(issue: Issue) {
-        val remoteIssue = api.createIssue(issue)
+        try {
+            val remoteIssue = api.createIssue(issue)
 
-        dao.updateIssue(
-            issue.copy(
-                id = remoteIssue.id,
-                syncStatus = "SYNCED"
+            dao.updateIssue(
+                issue.copy(
+                    syncStatus = "SYNCED"
+                )
             )
-        )
+        } catch (e: Exception) {
+            throw e
+        }
     }
 }
